@@ -70,13 +70,13 @@ fickpeng_e = 5000
 summa_rorliga = mat + fickpeng_d + fickpeng_e
 
 # Sparande & Mål
-pension_ma månad = 1000
+pension_manad = 1000
 isk_manad = 1300
 buffert_manad = 500
 gemensamt_manad = 3000
 renovering_manad = 1000
 
-summa_sparande = pension_ma månad + isk_manad + buffert_manad + gemensamt_manad + renovering_manad
+summa_sparande = pension_manad + isk_manad + buffert_manad + gemensamt_manad + renovering_manad
 
 totalt_ut = summa_fasta + summa_rorliga
 netto_kvar = totalt_inkomster - totalt_ut - summa_sparande
@@ -110,7 +110,7 @@ with col_s1:
     st.subheader("Buffert")
     buffert_nuvarande = st.number_input("Nuvarande saldo Buffert (kr)", value=50000, step=1000)
     buffert_mal = 120000
-    st.write(f"Mål: **{buffert_mal:,.0f} kr** (Sparar {buffert_manad:0.0f} kr/mån)")
+    st.write(f"Mål: **{buffert_mal:,.0f} kr** (Sparar {buffert_manad:,.0f} kr/mån)")
     
     if buffert_manad > 0 and buffert_nuvarande < buffert_mal:
         kvar_att_spara = buffert_mal - buffert_nuvarande
@@ -123,7 +123,7 @@ with col_s1:
 
     st.subheader("Pension")
     pension_nuvarande = st.number_input("Nuvarande saldo Pension (kr)", value=100000, step=5000)
-    st.write(f"Månatligt sparande: **{pension_ma månad:,.0f} kr/mån**")
+    st.write(f"Månatligt sparande: **{pension_manad:,.0f} kr/mån**")
 
 with col_s2:
     st.subheader("ISK-sparande")
@@ -141,7 +141,6 @@ st.divider()
 # 4. INKOMSTER (INPUT)
 # ==========================================
 st.header("1. Inkomster (Netto)")
-# (Inmatningsfälten för inkomster ligger överst i koden, här visas bara värdena)
 st.write(f"Netto David: **{netto_david:,.0f} kr** | Netto Elin: **{netto_elin:,.0f} kr** | Övrigt: **{ovrig_inkomst:,.0f} kr**")
 
 # ==========================================
@@ -189,7 +188,7 @@ with col_f2:
     st.write(f"- Förskola: {forskola} kr")
 
 # ==========================================
-# 7. RÖRLIGA UTGIFTER & SPARANDE (Fält)
+# 7. RÖRLIGA UTGIFTER
 # ==========================================
 st.header("4. Rörliga Utgifter")
 col_r1, col_r2 = st.columns(2)
