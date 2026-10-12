@@ -34,6 +34,20 @@ tot_lan_3 = (((skuld_3 * (ranta_3 / 100)) / 12) * 0.70 + amortering_3) if skuld_
 
 summa_huslan = tot_lan_1 + tot_lan_2 + tot_lan_3
 
+# Försäkringar
+f_villa = st.session_state.get("f_villa", 0.0)
+f_bil = st.session_state.get("f_bil", 0.0)
+f_elcykel = st.session_state.get("f_elcykel", 0.0)
+f_liv_david = st.session_state.get("f_liv_d", 0.0)
+f_liv_elin = st.session_state.get("f_liv_e", 0.0)
+f_pers_david = st.session_state.get("f_pers_d", 0.0)
+f_pers_elin = st.session_state.get("f_pers_e", 0.0)
+f_pers_juni = st.session_state.get("f_pers_j", 0.0)
+f_pers_bebis = st.session_state.get("f_pers_b", 0.0)
+
+summa_forsakringar = (f_villa + f_bil + f_elcykel + f_liv_david + f_liv_elin + 
+                      f_pers_david + f_pers_elin + f_pers_juni + f_pers_bebis)
+
 # Fasta Utgifter
 pellets = st.session_state.get("pel", 0.0)
 transport = st.session_state.get("tra", 0.0)
@@ -52,7 +66,7 @@ a_kassa_fack_elin = st.session_state.get("ak_e", 0.0)
 csn_david = st.session_state.get("csn_d", 0.0)
 csn_elin = st.session_state.get("csn_e", 0.0)
 
-summa_fasta = (summa_huslan + pellets + transport + billan + el_tibber + el_ellevio + 
+summa_fasta = (summa_huslan + summa_forsakringar + pellets + transport + billan + el_tibber + el_ellevio + 
                bredband + tv + mobil + vatten_sopor + forskola + ovriga_fasta + 
                a_kassa_fack_david + a_kassa_fack_elin + csn_david + csn_elin)
 
@@ -200,6 +214,21 @@ with col_f2:
     st.number_input("CSN David", value=0.0, step=50.0, key="csn_d")
     st.number_input("CSN Elin", value=0.0, step=50.0, key="csn_e")
 
+# Nytt avsnitt för Försäkringar
+st.markdown("### Försäkringar")
+col_ins1, col_ins2 = st.columns(2)
+with col_ins1:
+    st.number_input("Villa", value=0.0, step=50.0, key="f_villa")
+    st.number_input("Bil", value=0.0, step=50.0, key="f_bil")
+    st.number_input("El-cykel", value=0.0, step=50.0, key="f_elcykel")
+    st.number_input("Liv David", value=0.0, step=50.0, key="f_liv_d")
+    st.number_input("Liv Elin", value=0.0, step=50.0, key="f_liv_e")
+with col_ins2:
+    st.number_input("Person David", value=0.0, step=50.0, key="f_pers_d")
+    st.number_input("Person Elin", value=0.0, step=50.0, key="f_pers_e")
+    st.number_input("Person Juni", value=0.0, step=50.0, key="f_pers_j")
+    st.number_input("Person Bebis", value=0.0, step=50.0, key="f_pers_b")
+
 
 # --- 4. RÖRLIGA UTGIFTER ---
 st.header("4. Rörliga Utgifter")
@@ -225,33 +254,4 @@ with col_s1:
 
 with col_s2:
     st.markdown("### 📈 ISK David")
-    st.number_input("Nuvarande saldo ISK David", value=0.0, step=1000.0, key="isk_d_nuv")
-    st.number_input("Spar/mån ISK David", value=0.0, step=100.0, key="isk_d_man")
-
-with col_s3:
-    st.markdown("### 📈 ISK Elin")
-    st.number_input("Nuvarande saldo ISK Elin", value=0.0, step=1000.0, key="isk_e_nuv")
-    st.number_input("Spar/mån ISK Elin", value=0.0, step=100.0, key="isk_e_man")
-
-col_s4, col_s5, col_s6 = st.columns(3)
-with col_s4:
-    st.markdown("### 🤝 Gemensamt")
-    st.number_input("Nuvarande saldo Gemensamt", value=0.0, step=1000.0, key="gem_nuv")
-    st.number_input("Spar/mån Gemensamt", value=0.0, step=100.0, key="gem_man")
-
-with col_s5:
-    st.markdown("### 🚗 Bilen")
-    st.number_input("Nuvarande saldo Bilen", value=0.0, step=1000.0, key="bil_nuv")
-    st.number_input("Spar/mån Bilen", value=0.0, step=100.0, key="bil_man")
-
-with col_s6:
-    st.markdown("### 🛠️ Renovering")
-    st.number_input("Nuvarande saldo Renovering", value=0.0, step=1000.0, key="ren_nuv")
-    st.number_input("Spar/mån Renovering", value=0.0, step=100.0, key="ren_man")
-
-st.markdown("### 👵 Pension (Månadssparande)")
-col_p1, col_p2 = st.columns(2)
-with col_p1:
-    st.number_input("Pension David / mån", value=0.0, step=100.0, key="p_d_man")
-with col_p2:
-    st.number_input("Pension Elin / mån", value=0.0, step=100.0, key="p_e_man")
+    st.number_input("Nuvarande saldo ISK David", value=0.0, step=1000.0, key
