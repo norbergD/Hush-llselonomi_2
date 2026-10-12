@@ -172,19 +172,19 @@ st.slider("Simulera ränteändring alla lån (%-enheter)", min_value=-2.0, max_v
 col_l1, col_l2, col_l3 = st.columns(3)
 with col_l1:
     st.subheader("Lån 1")
-    st.number_input("Skuld Lån 1 (kr)", value=0.0, step=10000.0, key="s1")
+    st.number_input("Lån 1 (kr)", value=0.0, step=10000.0, key="s1")
     st.number_input("Ränta Lån 1 (%)", value=0.0, step=0.05, key="ra1")
     st.write(f"Kostnad efter ränteavdrag: **{tot_lan_1:,.0f} kr/mån**")
 
 with col_l2:
     st.subheader("Lån 2")
-    st.number_input("Skuld Lån 2 (kr)", value=0.0, step=10000.0, key="s2")
+    st.number_input("Lån 2 (kr)", value=0.0, step=10000.0, key="s2")
     st.number_input("Ränta Lån 2 (%)", value=0.0, step=0.05, key="ra2")
     st.write(f"Kostnad efter ränteavdrag: **{tot_lan_2:,.0f} kr/mån**")
 
 with col_l3:
     st.subheader("Lån 3")
-    st.number_input("Skuld Lån 3 (kr)", value=0.0, step=5000.0, key="s3")
+    st.number_input("Lån 3 (kr)", value=0.0, step=5000.0, key="s3")
     st.number_input("Ränta Lån 3 (%)", value=0.0, step=0.05, key="ra3")
     st.number_input("Amortering Lån 3 (kr/mån)", value=0.0, step=100.0, key="amor3")
     st.write(f"Kostnad efter ränteavdrag: **{tot_lan_3:,.0f} kr/mån**")
@@ -214,7 +214,6 @@ with col_f2:
     st.number_input("CSN David", value=0.0, step=50.0, key="csn_d")
     st.number_input("CSN Elin", value=0.0, step=50.0, key="csn_e")
 
-# Nytt avsnitt för Försäkringar
 st.markdown("### Försäkringar")
 col_ins1, col_ins2 = st.columns(2)
 with col_ins1:
@@ -254,4 +253,33 @@ with col_s1:
 
 with col_s2:
     st.markdown("### 📈 ISK David")
-    st.number_input("Nuvarande saldo ISK David", value=0.0, step=1000.0, key
+    st.number_input("Nuvarande saldo ISK David", value=0.0, step=1000.0, key="isk_d_nuv")
+    st.number_input("Spar/mån ISK David", value=0.0, step=100.0, key="isk_d_man")
+
+with col_s3:
+    st.markdown("### 📈 ISK Elin")
+    st.number_input("Nuvarande saldo ISK Elin", value=0.0, step=1000.0, key="isk_e_nuv")
+    st.number_input("Spar/mån ISK Elin", value=0.0, step=100.0, key="isk_e_man")
+
+col_s4, col_s5, col_s6 = st.columns(3)
+with col_s4:
+    st.markdown("### 🤝 Gemensamt")
+    st.number_input("Nuvarande saldo Gemensamt", value=0.0, step=1000.0, key="gem_nuv")
+    st.number_input("Spar/mån Gemensamt", value=0.0, step=100.0, key="gem_man")
+
+with col_s5:
+    st.markdown("### 🚗 Bilen")
+    st.number_input("Nuvarande saldo Bilen", value=0.0, step=1000.0, key="bil_nuv")
+    st.number_input("Spar/mån Bilen", value=0.0, step=100.0, key="bil_man")
+
+with col_s6:
+    st.markdown("### 🛠️ Renovering")
+    st.number_input("Nuvarande saldo Renovering", value=0.0, step=1000.0, key="ren_nuv")
+    st.number_input("Spar/mån Renovering", value=0.0, step=100.0, key="ren_man")
+
+st.markdown("### 👵 Pension (Månadssparande)")
+col_p1, col_p2 = st.columns(2)
+with col_p1:
+    st.number_input("Pension David / mån", value=0.0, step=100.0, key="p_d_man")
+with col_p2:
+    st.number_input("Pension Elin / mån", value=0.0, step=100.0, key="p_e_man")
