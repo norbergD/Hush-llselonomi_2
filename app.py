@@ -8,8 +8,6 @@ st.title("🏡 Hushållsekonomi & Bolånekalkyl")
 # ==========================================
 # 1. HJÄLPFUNKTION FÖR INMATNINGAR & SESSION STATE
 # ==========================================
-# Hämtar inskrivna värden från formulären nedan för att räkna ut resultatet överst
-
 brutto_david = st.session_state.get("b_dav", 0.0)
 brutto_elin = st.session_state.get("b_el", 0.0)
 skatt_pct = st.session_state.get("sk_pct", 30.0)
@@ -90,13 +88,16 @@ renov_manad = st.session_state.get("ren_man", 0.0)
 pension_d_manad = st.session_state.get("p_d_man", 0.0)
 pension_e_manad = st.session_state.get("p_e_man", 0.0)
 
-# Summeringar Sparande
+# Summeringar
 totalt_isk_nuv = isk_d_nuv + isk_e_nuv
 totalt_isk_manad = isk_d_man + isk_e_man
 totalt_pension_manad = pension_d_manad + pension_e_manad
 
 huvudsakligt_spar_manad = buffert_manad + gemensamt_manad + totalt_isk_manad
 summa_sparande = huvudsakligt_spar_manad + bil_manad + renov_manad + totalt_pension_manad
+
+# Nuvarande sammanslagna saldo för Buffert, ISK och Gemensamt
+totalt_nuv_buffert_isk_gem = buffert_nuv + totalt_isk_nuv + gemensamt_nuv
 
 totalt_ut = summa_fasta + summa_rorliga
 netto_kvar = totalt_inkomster - totalt_ut - summa_sparande
@@ -113,7 +114,7 @@ col_m2.metric("Utgifter (exkl. spar)", f"{totalt_ut:,.0f} kr")
 col_m3.metric("Totalt Sparande", f"{summa_sparande:,.0f} kr/mån")
 col_m4.metric("Kvar att leva på", f"{netto_kvar:,.0f} kr")
 
-st.info(f"💡 **Specifikation sparande:** Buffert, Gemensamt & ISK totalt: **{huvudsakligt_spar_manad:,.0f} kr/mån** (Totalt ISK: {totalt_isk_manad:,.0f} kr/mån | Nuvarande totalt ISK-saldo: {totalt_isk_nuv:,.0f} kr).")
+st.info(f"💡 **Specifikation sparande:** Buffert, Gemensamt & ISK totalt: **{huvudsakligt_spar_manad:,.0f} kr/mån** | **Nuvarande samlat saldo (Buffert + ISK + Gemensamt): {totalt_nuv_buffert_isk_gem:,.0f} kr** (Totalt ISK/mån: {totalt_isk_manad:,.0f} kr).")
 
 if netto_kvar < 0 and totalt_inkomster > 0:
     st.error("⚠️ Utgifterna och sparandet överstiger inkomsterna!")
@@ -135,7 +136,7 @@ st.markdown("---")
 
 
 # ==========================================
-# 3. FORMULÄR & INMATNINGSPOSTER (TOMMA VÄRDEN)
+# 3. FORMULÄR & INMATNINGSPOSTER
 # ==========================================
 
 # --- 1. INKOMSTER ---
@@ -156,19 +157,19 @@ st.slider("Simulera ränteändring alla lån (%-enheter)", min_value=-2.0, max_v
 
 col_l1, col_l2, col_l3 = st.columns(3)
 with col_l1:
-    st.subheader("Lån 1 (Större)")
+    st.subheader("Lån 1")
     st.number_input("Skuld Lån 1 (kr)", value=0.0, step=10000.0, key="s1")
     st.number_input("Ränta Lån 1 (%)", value=0.0, step=0.05, key="ra1")
     st.write(f"Kostnad efter ränteavdrag: **{tot_lan_1:,.0f} kr/mån**")
 
 with col_l2:
-    st.subheader("Lån 2 (Större)")
+    st.subheader("Lån 2")
     st.number_input("Skuld Lån 2 (kr)", value=0.0, step=10000.0, key="s2")
     st.number_input("Ränta Lån 2 (%)", value=0.0, step=0.05, key="ra2")
     st.write(f"Kostnad efter ränteavdrag: **{tot_lan_2:,.0f} kr/mån**")
 
 with col_l3:
-    st.subheader("Lån 3 (Mindre)")
+    st.subheader("Lån 3")
     st.number_input("Skuld Lån 3 (kr)", value=0.0, step=5000.0, key="s3")
     st.number_input("Ränta Lån 3 (%)", value=0.0, step=0.05, key="ra3")
     st.number_input("Amortering Lån 3 (kr/mån)", value=0.0, step=100.0, key="amor3")
